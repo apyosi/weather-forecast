@@ -74,6 +74,35 @@ function fetchForecast(lat, lon) {
     });
 }
 
+function renderCurrentWeather(data) {
+  let name = data.name;
+  let date = moment(data.dt, "X").format("DD/MM/YYYY");
+  let time = moment(data.dt, "X").format("HH:mm:ss");
+  let {temp, feels_like, temp_min, temp_max, pressure, humidity}= data.main;
+  let sunrise = moment(data.sys.sunrise, "X").format("HH:mm:ss");
+  let sunset = moment(data.sys.sunset, "X").format("HH:mm:ss");
+  let {main, description, icon} = data.weather[0];
+  let wind = data.wind.speed;
+
+  let html = `<h3>${name} (${date})</h3>
+  <h6>Current Weather conditions updated on ${time}</h6>
+  <img src="http://openweathermap.org/img/wn/${icon}@2x.png">
+  <p>${main}</p>
+  <p>${description}</p>
+  <p>Temp: ${temp} &#8451</p>
+  <p>Feels Like: ${feels_like} &#8451</p>
+  <p>Max temp: ${temp_min} &#8451</p>
+  <p>Min temp: ${temp_max} &#8451</p>
+  <p>Wind: ${wind} meter/sec.</p>
+  <p>Humidity: ${humidity} %</p>
+  <p>Pressure: ${pressure} hPa</p>
+  <p>Sunrise: ${sunrise}</p>
+  <p>Sunset: ${sunset}</p>
+
+  `;
+  today.innerHTML = html;
+}
+
 function currentLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
