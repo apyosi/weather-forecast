@@ -14,6 +14,11 @@ let apiKey = "6008f3fcaf990bc7c0beb645fd2a3fb3";
 let urlGeocoding = `https://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiKey}`;
 let urlForecast5 = `https://api.openweathermap.org/data/2.5/forecast?q=london&appid=${apiKey}`;
 
+let historyLocations =
+  JSON.parse(localStorage.getItem("weatherLocations")) || [];
+console.log("History:");
+console.log(historyLocations);
+renderHistory();
 
 searchButton.addEventListener("click", fetchGeocoding);
 
@@ -56,7 +61,24 @@ function storeLocation() {
   localStorage.setItem("weatherLocations", JSON.stringify(historyLocations));
 }
 
+function renderHistory() {
+  let html = "";
+  for (let i = 0; i < historyLocations.length; i++) {
+    const element = historyLocations[i];
+    // let btn = document.createElement("button");
+    // btn.textContent = element.name;
+    // historyEl.appendChild(btn);
+    html += `<button class="btn btn-warning m-1" lat="${element.lat}" lon="${element.lon}">${element.name}</button>`;
+  }
+  historyEl.innerHTML = html;
+}
 
+historyEl.addEventListener("click", (event) => {
+  let lat = event.target.getAttribute("lat");
+  let lon = event.target.getAttribute("lon");
+  fetchCurrentWeather(lat, lon);
+  fetchForecast(lat, lon);
+});
 
 function fetchCurrentWeather(lat, lon) {
   fetch(
