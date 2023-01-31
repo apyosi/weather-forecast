@@ -98,7 +98,7 @@ function renderHistory() {
     // let btn = document.createElement("button");
     // btn.textContent = element.name;
     // historyEl.appendChild(btn);
-    html += `<button class="btn btn-warning m-1" lat="${element.lat}" lon="${element.lon}">${element.name}</button>`;
+    html += `<button type="button" class="btn btn-warning w-100 mt-1" lat="${element.lat}" lon="${element.lon}">${element.name}</button>`;
   }
   historyEl.innerHTML = html;
 }

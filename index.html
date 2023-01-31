@@ -30,13 +30,13 @@
     <!-- max-width for ultra wide resolutions -->
     <div class="container-fluid" style="max-width: 1400px">
       <div class="row">
-        <aside class="col-md-2 col-lg-2 pb-3">
+        <aside class="col-md-3 col-lg-2">
           <h2 id="form-heading" class="mt-1 h3 form-label">
-            Search for a City or Location:
+            Search for a City:
           </h2>
           <form id="search-form" class="form">
             <input
-              class="form-input weather-search form-control"
+              class="form-input weather-search form-control mb-3"
               type="text"
               id="search-input"
               required
@@ -45,7 +45,7 @@
             />
             <button
               type="submit"
-              class="btn btn-primary search-button"
+              class="btn btn-primary w-100"
               id="search-button"
               aria-label="submit search"
             >
@@ -53,15 +53,13 @@
             </button>
             <hr class="hr weather-hr" />
           </form>
-          <div>
-            <button id="current-location" class="btn btn-success">
-              Get Current Location Weather
+            <button type="button" id="current-location" class="btn btn-success w-100">
+              Current Location <i class="fa fa-location-dot"></i>
             </button>
-          </div>
           <div class="list-group" id="history"></div>
         </aside>
 
-        <main class="col-md-10 col-lg-10 pb-3">
+        <main class="col-md-9 col-lg-10 pb-3">
           <section id="search-results">
             <a href="#"></a>
           </section>
