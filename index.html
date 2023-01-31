@@ -12,11 +12,11 @@
       crossorigin="anonymous"
     />
     <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-    crossorigin="anonymous"
-  />
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
 
@@ -28,7 +28,7 @@
     </header>
 
     <!-- max-width for ultra wide resolutions -->
-    <div class="container-fluid style="max-width: 1400px"">
+    <div class="container-fluid" style="max-width: 1400px">
       <div class="row">
         <aside class="col-md-2 col-lg-2 pb-3">
           <h2 id="form-heading" class="mt-1 h3 form-label">
@@ -43,9 +43,6 @@
               aria-labelledby="form-heading"
               aria-controls="today forecast"
             />
-            <!-- <select class="form-select" aria-label="Default select example">
-              <option selected disabled>Open this select menu</option>
-            </select> -->
             <button
               type="submit"
               class="btn btn-primary search-button"
@@ -56,9 +53,11 @@
             </button>
             <hr class="hr weather-hr" />
           </form>
-          <button id="current-location" class="btn btn-success">
-            Get Current Location Weather
-          </button>
+          <div>
+            <button id="current-location" class="btn btn-success">
+              Get Current Location Weather
+            </button>
+          </div>
           <div class="list-group" id="history"></div>
         </aside>
 

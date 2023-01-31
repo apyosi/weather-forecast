@@ -28,7 +28,8 @@ currentLocationEl.addEventListener("click", currentLocation);
 function fetchGeocoding(event) {
   event.preventDefault();
   clearResults();
-  let searchWord = searchInput.value;
+  let searchWord = searchInput.value.trim();
+  searchInput.value = "";
   fetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${searchWord}&limit=10&appid=${apiKey}`
   )
@@ -44,9 +45,9 @@ function fetchGeocoding(event) {
 
         let li = document.createElement("li");
         if (state) {
-          li.innerHTML = `<li><a href="#" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}" >${name}, ${country}, ${state}</a></li>`;
+          li.innerHTML = `<li><a href="#" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}, ${state}</a></li>`;
         } else {
-          li.innerHTML = `<li><a href="#"  lat="${lat}" lon="${lon} title="lat:${lat} lon:${lon}"">${name}, ${country}</a></li>`;
+          li.innerHTML = `<li><a href="#"  lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}</a></li>`;
         }
         // searchResultEl.innerHTML +=  li;
         searchResultList.appendChild(li);
@@ -143,7 +144,7 @@ function renderCurrentWeather(data) {
 
   let html = `<h3>${name} (${date})</h3>
   <h6>Current Weather conditions updated on ${time}</h6>
-  <img src="http://openweathermap.org/img/wn/${icon}@2x.png">
+  <img src="https://openweathermap.org/img/wn/${icon}@2x.png">
   <p>${main}</p>
   <p>${description}</p>
   <p>Temp: ${temp} &#8451</p>
@@ -173,7 +174,7 @@ function renderForecast(data) {
     <div class="card text-white bg-dark" style="width: 19%">
     <div class="card-body">
     <p class="card-text">${moment(dt, "X").format("DD/MM/YYYY")}</p>
-    <p class="card-text"><img src="http://openweathermap.org/img/wn/${icon}.png"></p>
+    <p class="card-text"><img src="https://openweathermap.org/img/wn/${icon}.png"></p>
     <p class="card-text">Temp: ${temp}</p>
     <p class="card-text">Wind: ${speed}</p>
     <p class="card-text">Humidity: ${humidity}</p>
@@ -198,6 +199,7 @@ function showPosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   fetchCurrentWeather(lat, lon);
+  fetchForecast(lat, lon);
 }
 
 function showError(error) {
