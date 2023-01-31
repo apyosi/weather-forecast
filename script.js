@@ -52,6 +52,28 @@ function clearResults() {
   searchResultList.innerHTML = "";
 }
 
+function fetchCurrentWeather(lat, lon) {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      renderCurrentWeather(data);
+    });
+}
+
+function fetchForecast(lat, lon) {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      renderForecast(data);
+    });
+}
+
 function currentLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
