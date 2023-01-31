@@ -103,6 +103,32 @@ function renderCurrentWeather(data) {
   today.innerHTML = html;
 }
 
+function renderForecast(data) {
+  
+
+  let html = "";
+  for (let i = 8; i < data.list.length; i = i+7) {
+    let {dt} = data.list[i];
+    let {temp, humidity} = data.list[i].main;
+    let {speed} = data.list[i].wind;
+    let {icon} = data.list[i].weather[0];
+    html += `
+    <div class="card text-white bg-dark" style="width: 19%">
+    <div class="card-body">
+    <p class="card-text">${moment(dt, "X").format("DD/MM/YYYY")}</p>
+    <p class="card-text"><img src="http://openweathermap.org/img/wn/${icon}.png"></p>
+    <p class="card-text">Temp: ${temp}</p>
+    <p class="card-text">Wind: ${speed}</p>
+    <p class="card-text">Humidity: ${humidity}</p>
+    </div>
+    </div>
+    `
+  }
+  forecast.innerHTML = html;
+  fiveDay.textContent = "5-Day Forecast:"
+}
+
+
 function currentLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
