@@ -39,12 +39,13 @@
               class="form-input weather-search form-control"
               type="text"
               id="search-input"
+              required
               aria-labelledby="form-heading"
               aria-controls="today forecast"
             />
-            <select class="form-select" aria-label="Default select example">
+            <!-- <select class="form-select" aria-label="Default select example">
               <option selected disabled>Open this select menu</option>
-            </select>
+            </select> -->
             <button
               type="submit"
               class="btn btn-primary search-button"
@@ -55,7 +56,7 @@
             </button>
             <hr class="hr weather-hr" />
           </form>
-          <button class="btn btn-success" onclick="currentLocation()">
+          <button id="current-location" class="btn btn-success">
             Get Current Location Weather
           </button>
           <div class="list-group" id="history"></div>

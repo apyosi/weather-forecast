@@ -1,6 +1,6 @@
 // Select html elements with document.querySelector
 const searchInput = document.querySelector("#search-input");
-const searchButton = document.querySelector("#search-button");
+const searchForm = document.querySelector("#search-form");
 const searchResults = document.querySelector("#search-results");
 const searchResultList = document.querySelector("#search-results-list");
 const formSelect = document.querySelector(".form-select");
@@ -8,6 +8,8 @@ const historyEl = document.querySelector("#history");
 const today = document.querySelector("#today");
 const forecast = document.querySelector(".forecast");
 const fiveDay = document.querySelector("#five-day");
+const currentLocationEl = document.querySelector("#current-location");
+
 
 //API key to use openweathermap.org free weather data
 let apiKey = "6008f3fcaf990bc7c0beb645fd2a3fb3";
@@ -20,7 +22,8 @@ console.log("History:");
 console.log(historyLocations);
 renderHistory();
 
-searchButton.addEventListener("click", fetchGeocoding);
+searchForm.addEventListener("submit", fetchGeocoding);
+currentLocationEl.addEventListener("click", currentLocation);
 
 function fetchGeocoding(event) {
   event.preventDefault();
