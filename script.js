@@ -52,6 +52,32 @@ function fetchGeocoding(event) {
     });
 }
 
+searchResultList.addEventListener("click", (event) => {
+  if (event.target.matches("a")) {
+    console.log(event.target.textContent);
+    let location = {
+      name: event.target.textContent,
+      lat: event.target.getAttribute("lat"),
+      lon: event.target.getAttribute("lon"),
+    };
+
+    if (
+      !historyLocations.some(function (item) {
+        return item.name === event.target.textContent;
+      })
+    ) {
+      historyLocations.unshift(location);
+      storeLocation();
+      console.log(historyLocations);
+    }
+    clearResults();
+    renderHistory();
+    fetchCurrentWeather(location.lat, location.lon);
+    fetchForecast(location.lat, location.lon);
+    // renderWeather();
+  }
+});
+
 function clearResults() {
   searchResults.innerHTML = "";
   searchResultList.innerHTML = "";
