@@ -175,7 +175,7 @@ function renderCurrentWeather(data) {
   let visibility = data.visibility;
 
   let html = `
-  <row><div class="card-header"><h3>${name} (${date})</h3>Current Weather conditions updated on ${time}</div></row>
+  <row><div class="card-header"><h2>${name} (${date})</h2>Current Weather conditions updated on ${time}</div></row>
   <div class="d-flex text-bg-dark rounded">
 
   <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
