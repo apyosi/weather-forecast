@@ -46,18 +46,20 @@
             </button>
             <hr class="hr weather-hr" />
           </form>
-            <button type="button" id="current-location" class="btn btn-success w-100">
-              <i class="fa-solid fa-location-dot"></i> Current Location
-            </button>
+          <button
+            type="button"
+            id="current-location"
+            class="btn btn-success w-100"
+          >
+            <i class="fa-solid fa-location-dot"></i> Current Location
+          </button>
           <div class="list-group" id="history"></div>
         </aside>
 
         <main class="col-sm-12 col-md-9 col-lg-10 pb-3">
-          <section id="search-results">
-            <a href="#"></a>
-          </section>
+          <section id="search-results" class="mt-1"></section>
           <section>
-            <ul id="search-results-list"></ul>
+            <ul id="search-results-list" class="list-group list-inline"></ul>
           </section>
           <section
             id="today"
@@ -72,7 +74,9 @@
             aria-live="polite"
           >
             <h3 id="five-day"></h3>
-            <div class="d-flex flex-wrap justify-content-evenly justify-content-sm-evenly justify-content-md-between   forecast"></div>
+            <div
+              class="d-flex flex-wrap justify-content-evenly justify-content-sm-evenly justify-content-md-between forecast"
+            ></div>
           </section>
         </main>
       </div>
@@ -83,7 +87,10 @@
       crossorigin="anonymous"
     ></script>
     <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/5f6acac718.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/5f6acac718.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- Moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <!-- jQuery -->

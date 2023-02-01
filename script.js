@@ -12,7 +12,6 @@ const forecast = document.querySelector(".forecast");
 const fiveDay = document.querySelector("#five-day");
 const currentLocationEl = document.querySelector("#current-location");
 
-
 // API key to use openweathermap.org free weather data
 let apiKey = "6008f3fcaf990bc7c0beb645fd2a3fb3";
 let urlGeocoding = `https://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiKey}`;
@@ -53,9 +52,9 @@ function fetchGeocoding(event) {
 
         let li = document.createElement("li");
         if (state) {
-          li.innerHTML = `<li><a href="#" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}, ${state}</a></li>`;
+          li.innerHTML = `<li role="button" class="list-group-item text-bg-danger rounded"><a href="#" class="text-light fw-bold fs-5 text-decoration-none" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}, ${state}</a></li>`;
         } else {
-          li.innerHTML = `<li><a href="#"  lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}</a></li>`;
+          li.innerHTML = `<li role="button" class="list-group-item text-bg-danger rounded"><a href="#" class="text-light fw-bold fs-5 text-decoration-none" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}</a></li>`;
         }
         // searchResultEl.innerHTML +=  li;
         searchResultList.appendChild(li);
@@ -131,7 +130,6 @@ historyEl.addEventListener("click", (event) => {
     console.log(textToDelete);
     removeLocation(textToDelete);
     renderHistory();
-
   } else {
     let lat = event.target.getAttribute("lat");
     let lon = event.target.getAttribute("lon");
@@ -169,10 +167,10 @@ function renderCurrentWeather(data) {
   let name = data.name;
   let date = moment(data.dt, "X").format("DD/MM/YYYY");
   let time = moment(data.dt, "X").format("HH:mm:ss");
-  let {temp, feels_like, temp_min, temp_max, pressure, humidity}= data.main;
+  let { temp, feels_like, temp_min, temp_max, pressure, humidity } = data.main;
   let sunrise = moment(data.sys.sunrise, "X").format("HH:mm:ss");
   let sunset = moment(data.sys.sunset, "X").format("HH:mm:ss");
-  let {main, description, icon} = data.weather[0];
+  let { main, description, icon } = data.weather[0];
   let wind = data.wind.speed;
   let visibility = data.visibility;
 
@@ -218,11 +216,11 @@ function renderCurrentWeather(data) {
 // Create the html from the API data for the next 5 days
 function renderForecast(data) {
   let html = "";
-  for (let i = 8; i < data.list.length; i = i+7) {
-    let {dt} = data.list[i];
-    let {temp, humidity} = data.list[i].main;
-    let {speed} = data.list[i].wind;
-    let {icon} = data.list[i].weather[0];
+  for (let i = 8; i < data.list.length; i = i + 7) {
+    let { dt } = data.list[i];
+    let { temp, humidity } = data.list[i].main;
+    let { speed } = data.list[i].wind;
+    let { icon } = data.list[i].weather[0];
     html += `
     <div class="card text-white bg-dark col-sm-5 col-md-2 mb-3" >
     <div class="card-body">
@@ -233,12 +231,11 @@ function renderForecast(data) {
     <p class="card-text">Humidity: ${humidity}</p>
     </div>
     </div>
-    `
+    `;
   }
   forecast.innerHTML = html;
-  fiveDay.textContent = "5-Day Forecast:"
+  fiveDay.textContent = "5-Day Forecast:";
 }
-
 
 // Get current location of the user
 function currentLocation() {
@@ -257,18 +254,18 @@ function showPosition(position) {
 }
 
 function showError(error) {
-  switch(error.code) {
+  switch (error.code) {
     case error.PERMISSION_DENIED:
-      alert("User denied the request for Geolocation.")
+      alert("User denied the request for Geolocation.");
       break;
     case error.POSITION_UNAVAILABLE:
-      alert("Location information is unavailable.")
+      alert("Location information is unavailable.");
       break;
     case error.TIMEOUT:
-      alert("The request to get user location timed out.")
+      alert("The request to get user location timed out.");
       break;
     case error.UNKNOWN_ERROR:
-      alert("An unknown error occurred.")
+      alert("An unknown error occurred.");
       break;
   }
 }
