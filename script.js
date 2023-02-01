@@ -153,11 +153,11 @@ function renderCurrentWeather(data) {
   <div class="card-body">
     <h5 class="card-title"></h5>
     <p class="card-text">${main}</p>
-    <img src="https://openweathermap.org/img/wn/${icon}@4x.png">
+    <p><img class="mw-100" src="https://openweathermap.org/img/wn/${icon}@4x.png"></p>
   </div>
   </div>
 
-  <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card text-bg-dark" style="max-width: 18rem;">
   <div class="card-body">
   <h5 class="card-title"></h5>
   <p class="card-text">Temperature: ${temp} &#8451</p>
@@ -168,7 +168,7 @@ function renderCurrentWeather(data) {
   </div>
   </div>
 
-  <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card text-bg-dark" style="max-width: 18rem;">
 
   <div class="card-body">
     <h5 class="card-title"></h5>
@@ -197,7 +197,7 @@ function renderForecast(data) {
     let {speed} = data.list[i].wind;
     let {icon} = data.list[i].weather[0];
     html += `
-    <div class="card text-white bg-dark" style="width: 19%">
+    <div class="card text-white bg-dark col-sm-5 col-md-2 mb-3" >
     <div class="card-body">
     <p class="card-text">${moment(dt, "X").format("DD/MM/YYYY")}</p>
     <p class="card-text"><img src="https://openweathermap.org/img/wn/${icon}.png"></p>
