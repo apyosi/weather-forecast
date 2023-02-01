@@ -150,33 +150,30 @@ function renderCurrentWeather(data) {
   <div class="d-flex text-bg-dark">
 
   <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
-  <div class="card-header"><h2>${temp} &#8451</h2></div>
+  <div class="card-header"></div>
   <div class="card-body">
-    <h4 class="card-title">${main}</h4>
-    <p></p>
+    <h2>${temp} &#8451</h2>
     <p class="card-text"><img class="mw-100" src="https://openweathermap.org/img/wn/${icon}@2x.png"></p>
+    <h4 class="card-title">${main}</h4>
   </div>
   </div>
 
   <div class="card text-bg-dark" style="max-width: 18rem;">
   <div class="card-body">
-  <h5 class="card-title"></h5>
-  
-  <h5 class="card-text">Feels Like: ${feels_like} &#8451</h6>
-  <h5 class="card-text">Max temp: ${temp_max} &#8451</h6>
-  <h5 class="card-text">Min temp: ${temp_min} &#8451</h6>
-  <h5 class="card-text">Sunrise: ${sunrise}</h6>
+    <h5 class="card-text my-4">Feels Like: ${feels_like} &#8451</h6>
+    <h5 class="card-text mb-4">Max temp: ${temp_max} &#8451</h6>
+    <h5 class="card-text mb-4">Min temp: ${temp_min} &#8451</h6>
+    <h5 class="card-text mb-4">Sunrise: ${sunrise}</h6>
   </div>
   </div>
 
   <div class="card text-bg-dark" style="max-width: 18rem;">
 
   <div class="card-body">
-    <h5 class="card-title"></h5>
-    <h5 class="card-text">Wind: ${wind} meter/sec.</h6>
-    <h5 class="card-text">Humidity: ${humidity} %</h6>
-    <h5 class="card-text">Pressure: ${pressure} hPa</h6>
-    <h5 class="card-text">Sunset: ${sunset}</h6>
+    <h5 class="card-text my-4">Wind: ${wind} meter/sec.</h6>
+    <h5 class="card-text mb-4">Humidity: ${humidity} %</h6>
+    <h5 class="card-text mb-4">Pressure: ${pressure} hPa</h6>
+    <h5 class="card-text mb-4">Sunset: ${sunset}</h6>
 
    
   </div>
