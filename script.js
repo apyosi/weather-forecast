@@ -16,6 +16,8 @@ let apiKey = "6008f3fcaf990bc7c0beb645fd2a3fb3";
 let urlGeocoding = `https://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiKey}`;
 let urlForecast5 = `https://api.openweathermap.org/data/2.5/forecast?q=london&appid=${apiKey}`;
 
+currentLocation();
+
 let historyLocations =
   JSON.parse(localStorage.getItem("weatherLocations")) || [];
 console.log("History:");
@@ -141,22 +143,46 @@ function renderCurrentWeather(data) {
   let sunset = moment(data.sys.sunset, "X").format("HH:mm:ss");
   let {main, description, icon} = data.weather[0];
   let wind = data.wind.speed;
+  let visibility = data.visibility;
 
-  let html = `<h3>${name} (${date})</h3>
-  <h6>Current Weather conditions updated on ${time}</h6>
-  <img src="https://openweathermap.org/img/wn/${icon}@2x.png">
-  <p>${main}</p>
-  <p>${description}</p>
-  <p>Temp: ${temp} &#8451</p>
-  <p>Feels Like: ${feels_like} &#8451</p>
-  <p>Max temp: ${temp_min} &#8451</p>
-  <p>Min temp: ${temp_max} &#8451</p>
-  <p>Wind: ${wind} meter/sec.</p>
-  <p>Humidity: ${humidity} %</p>
-  <p>Pressure: ${pressure} hPa</p>
-  <p>Sunrise: ${sunrise}</p>
-  <p>Sunset: ${sunset}</p>
+  let html = `
+  <row><div class="card-header"><h3>${name} (${date})</h3>Current Weather conditions updated on ${time}</div></row>
+  <div class="d-flex text-bg-dark">
 
+  <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">${main}</p>
+    <img src="https://openweathermap.org/img/wn/${icon}@4x.png">
+  </div>
+  </div>
+
+  <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card-body">
+  <h5 class="card-title"></h5>
+  <p class="card-text">Temperature: ${temp} &#8451</p>
+  <p class="card-text">Feels Like: ${feels_like} &#8451</p>
+  <p class="card-text">Max temp: ${temp_min} &#8451</p>
+  <p class="card-text">Min temp: ${temp_max} &#8451</p>
+  <p class="card-text">Visibility: ${visibility} meter</p>
+  </div>
+  </div>
+
+  <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text">Wind: ${wind} meter/sec.</p>
+    <p class="card-text">Humidity: ${humidity} %</p>
+    <p class="card-text">Pressure: ${pressure} hPa</p>
+    <p class="card-text">Sunrise: ${sunrise}</p>
+    <p class="card-text">Sunset: ${sunset}</p>
+
+   
+  </div>
+  </div>
+
+</div>
   `;
   today.innerHTML = html;
 }
