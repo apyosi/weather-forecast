@@ -1,4 +1,5 @@
-//TODO Refactor the code when I gain more knowledge
+// TODO Refactor the code when I gain more knowledge
+// TODO fahrenheit switch
 
 // Select html elements with document.querySelector
 const searchInput = document.querySelector("#search-input");
