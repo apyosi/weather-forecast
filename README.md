@@ -31,6 +31,7 @@ Use the 5 Day Weather Forecast to retrieve weather data for cities. The base URL
 * HTML
 * CSS
 * JavaScript
+* Bootstrap
 
 ## Deployed Site Link
 [GitHub Pages](https://apyosi.github.io/weather-forecast/)
