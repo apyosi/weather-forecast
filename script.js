@@ -1,3 +1,5 @@
+//TODO Refactor the code when I gain more knowledge
+
 // Select html elements with document.querySelector
 const searchInput = document.querySelector("#search-input");
 const searchForm = document.querySelector("#search-form");
@@ -11,22 +13,26 @@ const fiveDay = document.querySelector("#five-day");
 const currentLocationEl = document.querySelector("#current-location");
 
 
-//API key to use openweathermap.org free weather data
+// API key to use openweathermap.org free weather data
 let apiKey = "6008f3fcaf990bc7c0beb645fd2a3fb3";
 let urlGeocoding = `https://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiKey}`;
 let urlForecast5 = `https://api.openweathermap.org/data/2.5/forecast?q=london&appid=${apiKey}`;
 
+// Start with asking the user for their location
 currentLocation();
 
+// Get history of location if available
 let historyLocations =
   JSON.parse(localStorage.getItem("weatherLocations")) || [];
 console.log("History:");
 console.log(historyLocations);
 renderHistory();
 
+// event listeners on search form and current location button
 searchForm.addEventListener("submit", fetchGeocoding);
 currentLocationEl.addEventListener("click", currentLocation);
 
+// Function that get user input, and search the API data for the term, generate list of found locations
 function fetchGeocoding(event) {
   event.preventDefault();
   clearResults();
@@ -58,6 +64,7 @@ function fetchGeocoding(event) {
     });
 }
 
+// Event listener on the list items and after push the item in array; calls other functions
 searchResultList.addEventListener("click", (event) => {
   if (event.target.matches("a")) {
     console.log(event.target.textContent);
@@ -84,15 +91,26 @@ searchResultList.addEventListener("click", (event) => {
   }
 });
 
+// Clear the search results div
 function clearResults() {
   searchResults.innerHTML = "";
   searchResultList.innerHTML = "";
 }
 
+// Store the object to local storage
 function storeLocation() {
   localStorage.setItem("weatherLocations", JSON.stringify(historyLocations));
 }
 
+// Remove the object from array and call the function to store the new array
+function removeLocation(location) {
+  console.log(historyLocations);
+  historyLocations = historyLocations.filter((e) => e.name !== location);
+  console.log(historyLocations);
+  storeLocation();
+}
+
+// Render history of the searches
 function renderHistory() {
   let html = "";
   for (let i = 0; i < historyLocations.length; i++) {
@@ -100,18 +118,29 @@ function renderHistory() {
     // let btn = document.createElement("button");
     // btn.textContent = element.name;
     // historyEl.appendChild(btn);
-    html += `<button type="button" class="btn btn-warning w-100 mt-1" lat="${element.lat}" lon="${element.lon}">${element.name}</button>`;
+    html += `<div role="button" class="text-start bg-warning rounded position-relative p-2 w-100 mt-1" lat="${element.lat}" lon="${element.lon}">${element.name}<button type="button" class="position-absolute top-0 end-0 btn-close" aria-label="Close"></button></div>`;
   }
   historyEl.innerHTML = html;
 }
 
+// Event delegation - Event listener to delete the item or to render the weather
 historyEl.addEventListener("click", (event) => {
-  let lat = event.target.getAttribute("lat");
-  let lon = event.target.getAttribute("lon");
-  fetchCurrentWeather(lat, lon);
-  fetchForecast(lat, lon);
+  if (event.target.matches(".btn-close")) {
+    console.log(event.target);
+    let textToDelete = event.target.parentElement.textContent;
+    console.log(textToDelete);
+    removeLocation(textToDelete);
+    renderHistory();
+
+  } else {
+    let lat = event.target.getAttribute("lat");
+    let lon = event.target.getAttribute("lon");
+    fetchCurrentWeather(lat, lon);
+    fetchForecast(lat, lon);
+  }
 });
 
+// Fetch the current weather
 function fetchCurrentWeather(lat, lon) {
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
@@ -123,6 +152,7 @@ function fetchCurrentWeather(lat, lon) {
     });
 }
 
+// Fetch the weather for next 5 days
 function fetchForecast(lat, lon) {
   fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
@@ -134,6 +164,7 @@ function fetchForecast(lat, lon) {
     });
 }
 
+// Create the html from the API data for the day
 function renderCurrentWeather(data) {
   let name = data.name;
   let date = moment(data.dt, "X").format("DD/MM/YYYY");
@@ -184,9 +215,8 @@ function renderCurrentWeather(data) {
   today.innerHTML = html;
 }
 
+// Create the html from the API data for the next 5 days
 function renderForecast(data) {
-  
-
   let html = "";
   for (let i = 8; i < data.list.length; i = i+7) {
     let {dt} = data.list[i];
@@ -210,6 +240,7 @@ function renderForecast(data) {
 }
 
 
+// Get current location of the user
 function currentLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
