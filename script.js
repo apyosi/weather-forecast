@@ -163,8 +163,8 @@ function renderCurrentWeather(data) {
   <h5 class="card-title"></h5>
   
   <h5 class="card-text">Feels Like: ${feels_like} &#8451</h6>
-  <h5 class="card-text">Max temp: ${temp_min} &#8451</h6>
-  <h5 class="card-text">Min temp: ${temp_max} &#8451</h6>
+  <h5 class="card-text">Max temp: ${temp_max} &#8451</h6>
+  <h5 class="card-text">Min temp: ${temp_min} &#8451</h6>
   <h5 class="card-text">Sunrise: ${sunrise}</h6>
   </div>
   </div>
