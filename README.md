@@ -35,6 +35,9 @@ Use the 5 Day Weather Forecast to retrieve weather data for cities. The base URL
 ## Deployed Site Link
 [GitHub Pages](https://apyosi.github.io/weather-forecast/)
 
+## Outcome
+![Weather Forecast Dashboard outcome](/assets/outcome.png)
+
 
 ## License
 MIT
