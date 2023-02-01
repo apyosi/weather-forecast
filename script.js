@@ -52,9 +52,9 @@ function fetchGeocoding(event) {
 
         let li = document.createElement("li");
         if (state) {
-          li.innerHTML = `<li role="button" class="list-group-item text-bg-danger rounded"><a href="#" class="text-light fw-bold fs-5 text-decoration-none" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}, ${state}</a></li>`;
+          li.innerHTML = `<li role="button" class="list-group-item text-bg-danger text-light fw-bold fs-5 rounded" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}, ${state}</li>`;
         } else {
-          li.innerHTML = `<li role="button" class="list-group-item text-bg-danger rounded"><a href="#" class="text-light fw-bold fs-5 text-decoration-none" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}</a></li>`;
+          li.innerHTML = `<li role="button" class="list-group-item text-bg-danger text-light fw-bold fs-5 rounded" lat="${lat}" lon="${lon}" title="lat:${lat} lon:${lon}">${name}, ${country}</li>`;
         }
         // searchResultEl.innerHTML +=  li;
         searchResultList.appendChild(li);
@@ -65,7 +65,7 @@ function fetchGeocoding(event) {
 
 // Event listener on the list items and after push the item in array; calls other functions
 searchResultList.addEventListener("click", (event) => {
-  if (event.target.matches("a")) {
+  if (event.target.matches("li")) {
     console.log(event.target.textContent);
     let location = {
       name: event.target.textContent,
