@@ -24,7 +24,7 @@ Use the 5 Day Weather Forecast to retrieve weather data for cities. The base URL
 
 
 ## Mock-Up
-![Weather Dashboard demo](/assets/demo.png)
+![Weather Dashboard demo](/demo/mock-up.png)
 
 
 ## Built with
@@ -37,7 +37,7 @@ Use the 5 Day Weather Forecast to retrieve weather data for cities. The base URL
 [GitHub Pages](https://apyosi.github.io/weather-forecast/)
 
 ## Outcome
-![Weather Forecast Dashboard outcome](/assets/outcome.png)
+![Weather Forecast Dashboard outcome](/demo/image.png)
 
 
 ## License
