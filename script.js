@@ -1,5 +1,14 @@
 // TODO Refactor the code when I gain more knowledge
 // TODO fahrenheit switch
+// TODO Air Pollution - 50% is done
+
+/* 
+API Documentation an URLs
+https://openweathermap.org/api/geocoding-api  // Geocoding API
+https://openweathermap.org/current            // Current weather data
+https://openweathermap.org/forecast5          // 5 day weather forecast
+https://openweathermap.org/api/air-pollution  // Air Pollution API
+*/
 
 // Select html elements with document.querySelector
 const searchInput = document.querySelector("#search-input");
@@ -12,6 +21,7 @@ const today = document.querySelector("#today");
 const forecast = document.querySelector(".forecast");
 const fiveDay = document.querySelector("#five-day");
 const currentLocationEl = document.querySelector("#current-location");
+
 
 // API key to use openweathermap.org free weather data
 let apiKey = "6008f3fcaf990bc7c0beb645fd2a3fb3";
@@ -87,7 +97,7 @@ searchResultList.addEventListener("click", (event) => {
     renderHistory();
     fetchCurrentWeather(location.lat, location.lon);
     fetchForecast(location.lat, location.lon);
-    // renderWeather();
+    fetchAirPollution(location.lat, location.lon);
   }
 });
 
@@ -136,6 +146,7 @@ historyEl.addEventListener("click", (event) => {
     let lon = event.target.getAttribute("lon");
     fetchCurrentWeather(lat, lon);
     fetchForecast(lat, lon);
+    fetchAirPollution(lat, lon);
   }
 });
 
@@ -163,6 +174,42 @@ function fetchForecast(lat, lon) {
     });
 }
 
+// Fetch the air pollution data
+function fetchAirPollution(lat, lon) {
+  fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    setTimeout(function(){
+      renderAirPollution(data);
+    },1000)
+    
+  })
+}
+// Create the html from the API data for the Air
+function renderAirPollution(data) {
+  let {co, nh3, no, no2, o3, pm10, pm2_5, so2} = data.list[0].components;
+  let div = document.createElement("div");
+  div.innerHTML = 
+  `<div class="card text-bg-dark" style="max-width: 18rem;">
+    <div class="card-body">
+      <h6 class="card-text">Air Pollution:</h6>
+      <h6 class="card-text my-1">NO<sub>2</sub>: ${no2}</h6>
+      <h6 class="card-text mb-1">PM<sub>10</sub>: ${pm10}</h6>
+      <h6 class="card-text mb-1">O<sub>3</sub>: ${o3}</h6>
+      <h6 class="card-text mb-1">PM<sub>2.5</sub>: ${pm2_5}</h6>
+      <h6 class="card-text my-1">CO: ${co}</h6>
+      <h6 class="card-text mb-1">NO: ${no}</h6>
+      <h6 class="card-text mb-1">NH<sub>3</sub>: ${nh3}</h6>
+      <h6 class="card-text mb-1">SO<sub>2</sub>: ${so2}</h6>
+  </div>
+  </div>
+  `
+  const todayCards = document.querySelector("#today-cards");
+  todayCards.appendChild(div);
+}
+
+
 // Create the html from the API data for the day
 function renderCurrentWeather(data) {
   let name = data.name;
@@ -177,7 +224,7 @@ function renderCurrentWeather(data) {
 
   let html = `
   <row><div class="card-header"><h2>${name} (${date})</h2>Current Weather conditions updated on ${time}</div></row>
-  <div class="d-flex text-bg-dark rounded">
+  <div id="today-cards" class="d-flex flex-wrap text-bg-dark rounded">
 
   <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
   <div class="card-header"></div>
@@ -190,20 +237,20 @@ function renderCurrentWeather(data) {
 
   <div class="card text-bg-dark" style="max-width: 18rem;">
   <div class="card-body">
-    <h5 class="card-text my-4">Feels Like: ${feels_like} &#8451</h6>
-    <h5 class="card-text mb-4">Max temp: ${temp_max} &#8451</h6>
-    <h5 class="card-text mb-4">Min temp: ${temp_min} &#8451</h6>
-    <h5 class="card-text mb-4">Sunrise: ${sunrise}</h6>
+    <h5 class="card-text my-4">Feels Like: ${feels_like} &#8451</h5>
+    <h5 class="card-text mb-4">Max temp: ${temp_max} &#8451</h5>
+    <h5 class="card-text mb-4">Min temp: ${temp_min} &#8451</h5>
+    <h5 class="card-text mb-4">Sunrise: ${sunrise}</h5>
   </div>
   </div>
 
   <div class="card text-bg-dark" style="max-width: 18rem;">
 
   <div class="card-body">
-    <h5 class="card-text my-4">Wind: ${wind} meter/sec.</h6>
-    <h5 class="card-text mb-4">Humidity: ${humidity} %</h6>
-    <h5 class="card-text mb-4">Pressure: ${pressure} hPa</h6>
-    <h5 class="card-text mb-4">Sunset: ${sunset}</h6>
+    <h5 class="card-text my-4">Wind: ${wind} meter/sec.</h5>
+    <h5 class="card-text mb-4">Humidity: ${humidity} %</h5>
+    <h5 class="card-text mb-4">Pressure: ${pressure} hPa</h5>
+    <h5 class="card-text mb-4">Sunset: ${sunset}</h5>
 
    
   </div>
@@ -227,9 +274,9 @@ function renderForecast(data) {
     <div class="card-body">
     <p class="card-text">${moment(dt, "X").format("DD/MM/YYYY")}</p>
     <p class="card-text"><img src="https://openweathermap.org/img/wn/${icon}.png"></p>
-    <p class="card-text">Temp: ${temp}</p>
-    <p class="card-text">Wind: ${speed}</p>
-    <p class="card-text">Humidity: ${humidity}</p>
+    <p class="card-text">Temp: ${temp} &#8451</p>
+    <p class="card-text">Wind: ${speed} m/s</p>
+    <p class="card-text">Humidity: ${humidity} %</p>
     </div>
     </div>
     `;
@@ -252,6 +299,7 @@ function showPosition(position) {
   let lon = position.coords.longitude;
   fetchCurrentWeather(lat, lon);
   fetchForecast(lat, lon);
+  fetchAirPollution(lat, lon);
 }
 
 function showError(error) {
